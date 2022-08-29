@@ -20,7 +20,7 @@ function startGame() {
     let clawsButton = document.getElementById('claws-button')
     clawsButton.addEventListener('click', clawsAttack)
 
-    let newFightButton = document.getElementById('new-fight-button')
+    let newFightButton = document.getElementById('reset-button')
     newFightButton.addEventListener('click', resetGame)
 }
 

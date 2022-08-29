@@ -13,33 +13,50 @@
         <h1 class="title">Monster-Fight</h1>
             <h2 class="subtitle">Choose a Fighter</h2>
     <div class="cards">
-        <label class="fighter-card" for="human">Human</label>
-            <input type="radio" name="fighter" id="human" />
-        <label class="fighter-card" for="vampire">Vampire</label>
-            <input type="radio" name="fighter" id="vampire" />
-        <label class="fighter-card" for="werewolf">Werewolf</label>
-            <input type="radio" name="fighter" id="werewolf" />
-        </div>
+        <input type="radio" name="fighter" id="human" />
+        <label class="fighter-card" for="human">
+            <p>Human</p>
+            <img src="/assets/Old_MMA_fighter.png" alt="Human Fighter">
+        </label>
+        <input type="radio" name="fighter" id="vampire" />
+        <label class="fighter-card" for="vampire">
+            <p>Vampire</p>
+            <img src="/assets/vampire_fighter.png" alt="Vampire Fighter">
+        </label>
+        <input type="radio" name="fighter" id="werewolf" />
+        <label class="fighter-card" for="werewolf">
+            <p>Werewolf</p>
+            <img src="/assets/werewolf_fighter.png" alt="Werewolf Fighter">
+        </label>
+    </div>
             <button id="fighter-button">Select</button>
+    </section>
+    <section id="select-attack">
+        <h1 class="title">Monster-Fight</h1>
+            <h2 class="subtitle">Choose an attack: 🔥</h2>
+    <div class="attacks-card">
+           <button id="shotgun-button" class="attack-button">Shotgun</button>
+           <button id="fangs-button" class="attack-button">Poisonous Fangs</button>
+           <button id="claws-button" class="attack-button">Super Claws</button>
+    </div>
+    <div>
+        <p id="messages">Good look!!!</p>
+        <section id="reset">
+            <button id="reset-button">New Fight</button>
         </section>
-        <section id="select-attack">
-                <h2 class="subtitle">Choose an attack: 🔥</h2>
-        <div>
-            <div>
-                <p>Your <span id="player-fighter"></span>  fighter  has <span id="player-lifes">3</span> lifes</p>
-                <p>The enemy's <span id="enemy-fighter"></span> fighter has <span id="enemy-lifes">3</span> lifes</p>
-            </div>
-            <button id="shotgun-button" class="attack-button">Shotgun</button>
-            <button id="fangs-button" class="attack-button">Poisonous Fangs</button>
-            <button id="claws-button" class="attack-button">Super Claws</button>
+    </div>
+    <div class="attacks">
+        <div class="player-attacks">
+            <p id="player-lifes">3</p>
+            <p id="player-fighter"></p>
+            <div id="player-attacks"></div>
         </div>
-        </section>
-        <div>
-            <section id="messages"></section>
-            <section id="reset">
-            <button id="new-fight-button">New Fight</button>
-            </section>
+        <div class="enemy-attacks">
+            <p id="enemy-lifes">3</p>
+            <p id="enemy-fighter"></p>
+            <div id="enemy-attacks"></div>
         </div>
+    </div>
     </section>
 </body>
 </html>
