@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster-Fight</title>
+    <script src="./js/code.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <section id="select-fighter">
+        <h1 class="title">Monster-Fight</h1>
+            <h2 class="subtitle">Choose a Fighter</h2>
+    <div class="cards">
+        <label class="fighter-card" for="human">Human</label>
+            <input type="radio" name="fighter" id="human" />
+        <label class="fighter-card" for="vampire">Vampire</label>
+            <input type="radio" name="fighter" id="vampire" />
+        <label class="fighter-card" for="werewolf">Werewolf</label>
+            <input type="radio" name="fighter" id="werewolf" />
+        </div>
+            <button id="fighter-button">Select</button>
+        </section>
+        <section id="select-attack">
+                <h2 class="subtitle">Choose an attack: 🔥</h2>
+        <div>
+            <div>
+                <p>Your <span id="player-fighter"></span>  fighter  has <span id="player-lifes">3</span> lifes</p>
+                <p>The enemy's <span id="enemy-fighter"></span> fighter has <span id="enemy-lifes">3</span> lifes</p>
+            </div>
+            <button id="shotgun-button" class="attack-button">Shotgun</button>
+            <button id="fangs-button" class="attack-button">Poisonous Fangs</button>
+            <button id="claws-button" class="attack-button">Super Claws</button>
+        </div>
+        </section>
+        <div>
+            <section id="messages"></section>
+            <section id="reset">
+            <button id="new-fight-button">New Fight</button>
+            </section>
+        </div>
+    </section>
+</body>
+</html>
