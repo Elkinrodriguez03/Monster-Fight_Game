@@ -5,37 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monster-Fight</title>
-    <script src="./js/code.js"></script>
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <section id="select-fighter">
         <h1 class="title">Monster-Fight</h1>
-            <h2 class="subtitle">Choose a Fighter</h2>
-    <div class="cards">
-        <input type="radio" name="fighter" id="human" />
-        <label class="fighter-card" for="human">
-            <p>Human</p>
-            <img src="/assets/Old_MMA_fighter.png" alt="Human Fighter">
-        </label>
-        <input type="radio" name="fighter" id="vampire" />
-        <label class="fighter-card" for="vampire">
-            <p>Vampire</p>
-            <img src="/assets/vampire_fighter.png" alt="Vampire Fighter">
-        </label>
-        <input type="radio" name="fighter" id="werewolf" />
-        <label class="fighter-card" for="werewolf">
-            <p>Werewolf</p>
-            <img src="/assets/werewolf_fighter.png" alt="Werewolf Fighter">
-        </label>
+        <h2 class="subtitle">Choose a Fighter</h2>
+    <div id="cards-container" class="cards">
     </div>
             <button id="fighter-button">Select</button>
     </section>
     <section id="select-attack">
         <h1 class="title">Monster-Fight</h1>
-            <h2 class="subtitle">Choose an attack: 🔥</h2>
+        <h2 class="subtitle">Choose an attack: 🔥</h2>
     <div class="attacks-card">
-           <button id="shotgun-button" class="attack-button">Shotgun</button>
+        <button id="shotgun-button" class="attack-button">Shotgun</button>
            <button id="fangs-button" class="attack-button">Poisonous Fangs</button>
            <button id="claws-button" class="attack-button">Super Claws</button>
     </div>
@@ -58,5 +42,6 @@
         </div>
     </div>
     </section>
+<script src="./js/code.js"></script>
 </body>
 </html>
