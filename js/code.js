@@ -1,9 +1,6 @@
 const sectionSelectAttack = document.getElementById('select-attack')
 const sectionNewFight = document.getElementById('reset')
 const playerFighterButton = document.getElementById('fighter-button')
-const clawsButton = document.getElementById('claws-button')
-const shotgunButton = document.getElementById('shotgun-button')
-const fangsButton = document.getElementById('fangs-button')
 const newFightButton = document.getElementById('reset-button')
 sectionNewFight.style.display = 'none'
 
@@ -15,20 +12,28 @@ const spanEnemyFighter = document.getElementById('enemy-fighter')
 const spanPlayerLifes = document.getElementById('player-lifes')
 const spanEnemyLifes = document.getElementById('enemy-lifes')
 
-const sectionMessages = document.getElementById('messages')
+const sectionMessages = document.getElementById('result')
 const playerAttacks = document.getElementById('player-attacks')
 const enemyAttacks = document.getElementById('enemy-attacks')
 const cardsContainer = document.getElementById('cards-container')
+const attacksContainer = document.getElementById('attacks-container')
 
 let monsterFighters = []
-let playerAttack
+let playerAttack = []
 let enemyAttack
 let monsterFighterOptions
+let monsterFighterAttacks
 let playerLifes = 3
 let enemyLifes = 3
 let inputHuman
 let inputVampire
 let inputWerewolf
+let playerFighter
+let shotgunButton
+let fangsButton
+let clawsButton
+let buttons = []
+
 
 class MonsterFighter {
     constructor(name, picture, life) {
@@ -50,14 +55,14 @@ human.attacks.push(
     { name: 'M&P15 Rifle', id: 'shotgun-button' },
     { name: 'Mossberg 500', id: 'shotgun-button' },
     { name: 'Knife', id: 'claws-button' },
-    { name: 'Axe', id: 'claws-button' },
+    { name: 'Mind Control', id: 'fangs-button' },
 )
 
 vampire.attacks.push(
     { name: 'Poison Fangs', id: 'fangs-button' },
     { name: 'Spit Acid', id: 'fangs-button' },
     { name: 'Mind Control', id: 'fangs-button' },
-    { name: 'Knife', id: 'claws-button' },
+    { name: 'Glock G19', id: 'shotgun-button' },
     { name: 'Axe', id: 'claws-button' },
 )
 
@@ -65,7 +70,7 @@ werewolf.attacks.push(
     { name: 'Iron Claws', id: 'claws-button' },
     { name: 'Super Bite', id: 'claws-button' },
     { name: 'Spit Acid', id: 'fangs-button' },
-    { name: 'Knife', id: 'claws-button' },
+    { name: 'M&P15 Rifle', id: 'shotgun-button' },
     { name: 'Axe', id: 'claws-button' },
 )
 
@@ -83,65 +88,86 @@ function startGame() {
             <img src=${monsterFighter.picture} alt=${monsterFighter.name}>
         </label>
         `
-    cardsContainer.innerHTML += monsterFighterOptions
+        cardsContainer.innerHTML += monsterFighterOptions
 
         inputHuman = document.getElementById('Human')
         inputVampire = document.getElementById('Vampire')
         inputWerewolf = document.getElementById('Werewolf')
     })
     
+    playerFighterButton.addEventListener('click', selectPlayerFighter)
     
-    playerFighterButton.addEventListener('click', selectPlayerFighter   )
-    
-    
-    shotgunButton.addEventListener('click', shotgunAttack)
-    
-    fangsButton.addEventListener('click', fangsAttack)
-    
-    clawsButton.addEventListener('click', clawsAttack)
-    
-    
-    newFightButton.addEventListener('click', resetGame)
+    newFightButton.addEventListener('click', resetGame)    
 }
 
 function selectPlayerFighter() {
     
     sectionFighterSelect.style.display = 'none'
-    
-    
     sectionSelectAttack.style.display = 'flex'
-    
-    
-    
-    
-    
+
     if (inputHuman.checked) {
         spanPlayerFighter.innerHTML = inputHuman.id
+        playerFighter = inputHuman.id
     } else if (inputVampire.checked) {
         spanPlayerFighter.innerHTML = inputVampire.id
+        playerFighter = inputVampire.id
     } else if (inputWerewolf.checked) {
         spanPlayerFighter.innerHTML = inputWerewolf.id
+        playerFighter = inputWerewolf.id
     } else {
         alert('Choose a Fighter')
     }
-
+    
     selectEnemyFighter()
+    extractAttacks(playerFighter)
+    attackSequence()
+}
+
+function extractAttacks(playerFighter) {
+    let attacks
+    for (let i = 0; i < monsterFighters.length; i++) {
+        if (playerFighter === monsterFighters[i].name) {
+            attacks = monsterFighters[i].attacks
+        }
+    }
+    showAttacks(attacks)
+}
+
+function showAttacks(attacks) {
+    attacks.forEach((attack) => {
+        monsterFighterAttacks = `
+        <button id=${attack.id} class="attack-button buttonsA">${attack.name}</button>  
+        `
+        attacksContainer.innerHTML += monsterFighterAttacks
+    })
+
+    shotgunButton = document.getElementById('shotgun-button')
+    fangsButton = document.getElementById('fangs-button')
+    clawsButton = document.getElementById('claws-button')
+    buttons = document.querySelectorAll('.buttonsA')
+
+    shotgunButton.addEventListener('click', shotgunAttack)
+    fangsButton.addEventListener('click', fangsAttack)
+    clawsButton.addEventListener('click', clawsAttack)
+}
+
+function attackSequence() {
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            if (e.target.textconte)
+        })
+    })
 }
 
 function selectEnemyFighter() {
-    let randomFighter = random(1,3)
+    let randomFighter = random(0, monsterFighters.length -1)
     
+    spanEnemyFighter.innerHTML = monsterFighters[randomFighter].name
 
-    if (randomFighter == 1) {
-        spanEnemyFighter.innerHTML = 'Human'
-    } else if (randomFighter == 2) {
-        spanEnemyFighter.innerHTML = 'Vampire'
-    } else {
-        spanEnemyFighter.innerHTML = 'Werewolf'
-    }
+    
 }
 
-function shotgunAttack() {
+function shotgunAttack() {      
     playerAttack = 'SHOTGUN'
     randomEnemyAttack()
 }
