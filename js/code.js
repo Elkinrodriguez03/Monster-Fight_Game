@@ -20,20 +20,24 @@ const attacksContainer = document.getElementById('attacks-container')
 
 let monsterFighters = []
 let playerAttack = []
-let enemyAttack
+let enemyAttack = []
 let monsterFighterOptions
 let monsterFighterAttacks
+let enemyFighterAttacks
 let playerLifes = 3
 let enemyLifes = 3
 let inputHuman
 let inputVampire
 let inputWerewolf
 let playerFighter
-let shotgunButton
-let fangsButton
-let clawsButton
+let fireGunButton
+let vampireAttackButton
+let werewolfAttackButton
 let buttons = []
-
+let indexPlayerAttack
+let indexEnemyAttack
+let playerWins = 0
+let enemyWins = 0
 
 class MonsterFighter {
     constructor(name, picture, life) {
@@ -51,27 +55,27 @@ let vampire = new MonsterFighter('Vampire', '/assets/vampire_fighter.png', 5)
 let werewolf = new MonsterFighter('Werewolf', '/assets/werewolf_fighter.png', 5)
 
 human.attacks.push(
-    { name: 'Glock G19', id: 'shotgun-button' },
-    { name: 'M&P15 Rifle', id: 'shotgun-button' },
-    { name: 'Mossberg 500', id: 'shotgun-button' },
-    { name: 'Knife', id: 'claws-button' },
-    { name: 'Mind Control', id: 'fangs-button' },
+    { name: '🔥', id: 'firegun-button' },
+    { name: '🔥', id: 'firegun-button' },
+    { name: '🔥', id: 'firegun-button' },
+    { name: '💧', id: 'fangs-button' },
+    { name: '🌱', id: 'claws-button' },
 )
 
 vampire.attacks.push(
-    { name: 'Poison Fangs', id: 'fangs-button' },
-    { name: 'Spit Acid', id: 'fangs-button' },
-    { name: 'Mind Control', id: 'fangs-button' },
-    { name: 'Glock G19', id: 'shotgun-button' },
-    { name: 'Axe', id: 'claws-button' },
+    { name: '💧', id: 'fangs-button' },
+    { name: '💧', id: 'fangs-button' },
+    { name: '💧', id: 'fangs-button' },
+    { name: '🔥', id: 'firegun-button' },
+    { name: '🌱', id: 'claws-button' },
 )
 
 werewolf.attacks.push(
-    { name: 'Iron Claws', id: 'claws-button' },
-    { name: 'Super Bite', id: 'claws-button' },
-    { name: 'Spit Acid', id: 'fangs-button' },
-    { name: 'M&P15 Rifle', id: 'shotgun-button' },
-    { name: 'Axe', id: 'claws-button' },
+    { name: '🌱', id: 'claws-button' },
+    { name: '🌱', id: 'claws-button' },
+    { name: '🌱', id: 'claws-button' },
+    { name: '💧', id: 'fangs-button' },
+    { name: '🔥', id: 'firegun-button' },
 )
 
 monsterFighters.push(human, vampire, werewolf)
@@ -136,25 +140,37 @@ function extractAttacks(playerFighter) {
 function showAttacks(attacks) {
     attacks.forEach((attack) => {
         monsterFighterAttacks = `
-        <button id=${attack.id} class="attack-button buttonsA">${attack.name}</button>  
+        <button id=${attack.id} class="attack-button buttons">${attack.name}</button>  
         `
         attacksContainer.innerHTML += monsterFighterAttacks
     })
 
-    shotgunButton = document.getElementById('shotgun-button')
-    fangsButton = document.getElementById('fangs-button')
-    clawsButton = document.getElementById('claws-button')
-    buttons = document.querySelectorAll('.buttonsA')
-
-    shotgunButton.addEventListener('click', shotgunAttack)
-    fangsButton.addEventListener('click', fangsAttack)
-    clawsButton.addEventListener('click', clawsAttack)
+    fireGunButton = document.getElementById('firegun-button')
+    vampireAttackButton = document.getElementById('vampireAttack-button')
+    werewolfAttackButton = document.getElementById('werewolfAttack-button')
+    buttons = document.querySelectorAll('.buttons')
 }
 
 function attackSequence() {
     buttons.forEach((button) => {
         button.addEventListener('click', (e) => {
-            if (e.target.textconte)
+            if (e.target.textContent === '🔥') {
+                playerAttack.push('SHOTGUN')
+                console.log(playerAttack)
+                button.style.background = '#A77979'
+                button.disabled = true
+            }   else if (e.target.textContent === '💧') {
+                playerAttack.push('Vampire Attack')
+                console.log(playerAttack)
+                button.style.background = '#A77979'
+                button.disabled = true
+            } else {
+                playerAttack.push('Werewolf Attack')
+                console.log(playerAttack)
+                button.style.background = '#A77979'
+                button.disabled = true
+            }
+            randomEnemyAttack()
         })
     })
 }
@@ -164,66 +180,73 @@ function selectEnemyFighter() {
     
     spanEnemyFighter.innerHTML = monsterFighters[randomFighter].name
 
-    
-}
-
-function shotgunAttack() {      
-    playerAttack = 'SHOTGUN'
-    randomEnemyAttack()
-}
-function fangsAttack() {
-    playerAttack = 'FANGS'
-    randomEnemyAttack()
-}
-function clawsAttack() {
-    playerAttack = 'CLAWS'
-    randomEnemyAttack()
+    enemyFighterAttacks = monsterFighters[randomFighter].attacks
 }
 
 function randomEnemyAttack() {
-    let randomAttack = random(1,3)
+    let randomAttack = random(0, enemyFighterAttacks.length -1)
     
-    if (randomAttack == 1) {
-        enemyAttack = 'SHOTGUN'
-    } else if (randomAttack == 2) {
-        enemyAttack = 'FANGS'
+    if (randomAttack == 0 || randomAttack == 1) {
+        enemyAttack.push('SHOTGUN')
+    } else if (randomAttack == 3 || randomAttack == 4) {
+        enemyAttack.push('Vampire Attack')
     } else {
-        enemyAttack = 'CLAWS'
+        enemyAttack.push('Werewolf Attack')
     }
+    console.log(enemyAttack)
+    startFight()
+}
 
-    fight()
+function startFight() {
+    if (playerAttack.length === 5) {
+        fight()
+    }
+}
+
+function indexBothFighters(player, enemy) {
+    indexPlayerAttack = playerAttack[player]
+    indexEnemyAttack = enemyAttack[enemy]
 }
 
 function fight() {
-    
-    
-    if(enemyAttack == playerAttack) {
-        newMessage("TIE")
-    } else if(playerAttack == 'SHOTGUN' && enemyAttack == 'CLAWS') {
-        newMessage("You Win")
-        enemyLifes-- 
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else if(playerAttack == 'FANGS' && enemyAttack == 'SHOTGUN') {
-        newMessage("You Win")
-        enemyLifes--
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else if(playerAttack == 'CLAWS' && enemyLifes == 'FANGS') {
-        newMessage("You Win")
-        enemyLifes--
-        spanEnemyLifes.innerHTML = enemyLifes
-    } else {
-        newMessage("You Lose")
-        playerLifes--
-        spanPlayerLifes.innerHTML = playerLifes
+
+    for (let index = 0; index < playerAttack.length; index++) {
+        if(playerAttack[index] === enemyAttack[index]) {
+            indexBothFighters(index, index)
+            newMessage("TIE")
+        } else if (playerAttack[index] === 'SHOTGUN' && enemyAttack[index] === 'Werewolf Attack') {
+            indexBothFighters(index, index)
+            newMessage("YOU WIN")
+            playerWins++
+            spanPlayerLifes.innerHTML = playerWins
+        } else if (playerAttack[index] === 'Vampire Attack' && enemyAttack[index] === 'SHOTGUN') {
+            indexBothFighters(index, index)
+            newMessage("YOU WIN")
+            playerWins++
+            spanPlayerLifes.innerHTML = playerWins
+         } else if (playerAttack[index] === 'Werewolf Attack' && enemyAttack[index] === 'Vampire Attack') {
+            indexBothFighters(index, index)
+            newMessage("YOU WIN")
+            playerWins++
+            spanPlayerLifes.innerHTML = playerWins
+         } else {
+            indexBothFighters(index, index)
+            newMessage("YOU LOSE")
+            enemyWins++
+            spanEnemyLifes.innerHTML = enemyWins
+         }
+
     }
 
     lifeCheck()
 }
 
 function lifeCheck() {
-    if (enemyLifes == 0) {
+    if (playerWins === enemyWins) {
+        newFinalMessage("This is a TIE!!!")
+    } else if (playerWins > enemyWins) {
         newFinalMessage("CONGRATULATION!! You Won :D")
-    } else if (playerLifes == 0) {
+    } else {
         newFinalMessage('K.O :(')
     }
 }
@@ -235,8 +258,8 @@ function newMessage(result) {
     let newEnemyAttack = document.createElement('p')
     
     sectionMessages.innerHTML = result
-    newPlayerAttack.innerHTML = playerAttack
-    newEnemyAttack.innerHTML = enemyAttack
+    newPlayerAttack.innerHTML = indexPlayerAttack
+    newEnemyAttack.innerHTML = indexEnemyAttack
     
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
@@ -244,16 +267,8 @@ function newMessage(result) {
 
 function newFinalMessage(finalResult) {
     
-    
     sectionMessages.innerHTML = finalResult
-    
-    
-    shotgunButton.disabled = true
-    
-    fangsButton.disabled = true
-    
-    clawsButton.disabled = true
-    
+        
     sectionNewFight.style.display = 'block'
     
 }
