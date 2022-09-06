@@ -120,6 +120,16 @@ input {
     align-items: center;
 }
 
+#show-map {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#map {
+    border: 3px solid white;
+}
+
 @media (max-width: 360px) {
     .attacks-card,
     .cards {
