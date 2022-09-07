@@ -126,13 +126,28 @@ input {
     justify-content: center;
 }
 
-#map {
-    border: 3px solid white;
+#show-map button {
+    width: 90px;
+    height: 40px;
+    border-radius: 20px;
+    background: 0 0;
+    border: 3px solid black; 
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    margin: 10px 0;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 660px) {
     .attacks-card,
     .cards {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 300px) {
+    #show-map div {
+        display: flex;
+        align-items: center;
         flex-direction: column;
     }
 }
