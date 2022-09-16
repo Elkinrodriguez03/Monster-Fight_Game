@@ -19,11 +19,28 @@
     <section id="show-map">
         <h2 class="subtitle">Monster-Fight Map</h2>
         <canvas id="map"></canvas>
-        <button onmouseup="stopMotion()" onmousedown="moveUp()">UP</button>
+        <button 
+        ontouchend="stopMotion()"  
+        onmouseup="stopMotion()" 
+        onmousedown="moveUp()"
+        ontouchstart="moveUp()"
+        >UP</button>
         <div>
-            <button onmouseup="stopMotion()" onmousedown="moveLeft()">LEFT</button>
-            <button onmouseup="stopMotion()" onmousedown="moveDown()">DOWN</button>
-            <button onmouseup="stopMotion()" onmousedown="moveRight()">RIGHT</button>
+            <button
+            ontouchend="stopMotion()"
+            onmouseup="stopMotion()" onmousedown="moveLeft()"
+            ontouchstart="moveLeft()" 
+            >LEFT</button>
+            <button 
+            ontouchend="stopMotion()"
+            onmouseup="stopMotion()" onmousedown="moveDown()"
+            ontouchstart="moveDown()" 
+            >DOWN</button>
+            <button 
+            ontouchend="stopMotion()"
+            onmouseup="stopMotion()" onmousedown="moveRight()"
+            ontouchstart="moveRight()" 
+            >RIGHT</button>
         </div>
     </section>
 

@@ -3,6 +3,7 @@ const cors = require("cors")
 
 const app = express()
 
+app.use(express.static('public'))
 app.use(cors())
 app.use(express.json())
 
@@ -21,6 +22,10 @@ class Player {
         this.x = x
         this.y = y
     }
+
+    assingAttacks(attacks) {
+        this.attacks = attacks
+    }
 }
 
 class MonsterFighter {
@@ -29,19 +34,19 @@ class MonsterFighter {
     }
 }
 
-app.get("/join", (req, ans) => {
+app.get("/join", (req, res) => {
     const id = `${Math.random()}`
 
     const player = new Player(id)
 
     players.push(player)
 
-    ans.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "*")
 
-    ans.send(id)
+    res.send(id)
 })
 
-app.post("/monsterFighter/:playerId", (req, ans) => {
+app.post("/monsterFighter/:playerId", (req, res) => {
     const playerId = req.params.playerId || ""
     const name  = req.body.fighter || ""
     const fighter = new MonsterFighter(name)
@@ -54,10 +59,10 @@ app.post("/monsterFighter/:playerId", (req, ans) => {
 
     console.log(players);
     console.log(playerId);  
-    ans.end()
+    res.end()
 })
 
-app.post("/monsterFighter/:playerId/position", (req, ans) => {
+app.post("/monsterFighter/:playerId/position", (req, res) => {
     const playerId = req.params.playerId || ""
     const x = req.body.x || 0
     const y = req.body.y || 0
@@ -70,8 +75,29 @@ app.post("/monsterFighter/:playerId/position", (req, ans) => {
 
     const enemies = players.filter((player) => playerId !== player.id)
 
-    ans.send({
+    res.send({
         enemies
+    })
+})
+
+app.post("/monsterFighter/:playerId/attacks", (req, res) => {
+    const playerId = req.params.playerId || ""
+    const attacks =req.body.attacks || []
+
+    const indexPlayer = players.findIndex((player) => playerId === player.id)
+
+    if(indexPlayer >= 0) {
+        players[indexPlayer].assingAttacks(attacks)
+    }
+
+    res.end()
+})
+
+app.get("/monsterFighter/:playerId/attacks", (req, res) => {
+    const playerId = req.params.playerId || ""
+    const player = players.find((player) => player.id === playerId)
+    res.send({
+        attacks: player.attacks || []
     })
 })
 

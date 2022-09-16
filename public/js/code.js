@@ -22,6 +22,7 @@ const sectionShowMap = document.getElementById('show-map')
 const map = document.getElementById('map')
 
 let playerId = null
+let enemyId = null
 let monsterFighters = []
 let enemyFighters = []
 let playerAttack = []
@@ -47,10 +48,10 @@ let enemyWins = 0
 let canvasMap = map.getContext("2d")
 let interval
 let backgroundMap = new Image()
-backgroundMap.src = '/assets/roadMap.jpg'
+backgroundMap.src = './assets/roadMap.jpg'
 let heightMap 
 let widthMap = window.innerWidth - 20
-const maxWidthMap = 420
+const maxWidthMap = 520
 
 if (widthMap > maxWidthMap) {
     widthMap = maxWidthMap - 20
@@ -89,11 +90,11 @@ class MonsterFighter {
     }
 }
 
-let human = new MonsterFighter('Human', '/assets/Old_MMA_fighter.png', 5, "/assets/Old_MMA_fighter_face.png")
+let human = new MonsterFighter('Human', './assets/Old_MMA_fighter.png', 5, "./assets/Old_MMA_fighter_face.png")
 
-let vampire = new MonsterFighter('Vampire', '/assets/vampire_fighter.png', 5, '/assets/vampire_fighter_face.png')
+let vampire = new MonsterFighter('Vampire', './assets/vampire_fighter.png', 5, './assets/vampire_fighter_face.png')
 
-let werewolf = new MonsterFighter('Werewolf', '/assets/werewolf_fighter.png', 5, "/assets/werewolf_fighter _face.png")
+let werewolf = new MonsterFighter('Werewolf', './assets/werewolf_fighter.png', 5, "./assets/werewolf_fighter _face.png")
 
 const HUMAN_ATTACKS = [
     { name: '🔥', id: 'firegun-button' },
@@ -155,10 +156,10 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch("http://localhost:1777/join")
-        .then(function (ans) {
-            if (ans.ok) {
-                ans.text()
+    fetch("http://192.168.10.12:1777/join")
+        .then(function (res) {
+            if (res.ok) {
+                res.text()
                     .then(function (answer) {
                         console.log(answer);
                         playerId = answer
@@ -168,9 +169,7 @@ function joinGame() {
 }
 
 function selectPlayerFighter() {
-    
-    sectionFighterSelect.style.display = 'none'
-    
+
     if (inputHuman.checked) {
         spanPlayerFighter.innerHTML = inputHuman.id
         playerFighter = inputHuman.id
@@ -182,7 +181,10 @@ function selectPlayerFighter() {
         playerFighter = inputWerewolf.id
     } else {
         alert('Choose a Fighter')
+        return
     }
+
+    sectionFighterSelect.style.display = 'none'
 
     selectMonsterFighter (playerFighter)
     
@@ -192,7 +194,7 @@ function selectPlayerFighter() {
 }
 
 function selectMonsterFighter(playerFighter) {
-    fetch(`http://localhost:1777/monsterFighter/${playerId}`, {
+    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -247,13 +249,43 @@ function attackSequence() {
                 button.style.background = '#A77979'
                 button.disabled = true
             }
-            randomEnemyAttack()
+            if (playerAttack.length === 5) {
+                sendAttacks()
+            }
         })
     })
 }
 
+function sendAttacks() {
+    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}/attacks`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            attacks: playerAttack
+        })
+    })
+
+    interval = setInterval(getAttacks, 50)
+}
+
+function getAttacks() {
+    fetch(`http://192.168.10.12:1777/monsterFighter/${enemyId}/attacks`)
+        .then(function (res) {
+            if (res.ok) {
+                res.json()
+                    .then(function ({ attacks }) {
+                        if (attacks.length === 5) {
+                            enemyAttack = attacks
+                            fight()
+                        }
+                    })
+            }
+        })
+}
+
 function selectEnemyFighter(enemy) {
-    // let randomFighter = random(0, monsterFighters.length -1)
     
     spanEnemyFighter.innerHTML = enemy.name
     enemyFighterAttacks = enemy.attacks
@@ -288,6 +320,7 @@ function indexBothFighters(player, enemy) {
 }
 
 function fight() {
+    clearInterval(interval)
 
     for (let index = 0; index < playerAttack.length; index++) {
         if(playerAttack[index] === enemyAttack[index]) {
@@ -354,6 +387,7 @@ function newFinalMessage(finalResult) {
 
 function resetGame() {
     location.reload()
+    // Matter.Composite.clear(canvasMap.monsterFighterObject, keepStatic = true)
 }
 
 function random(min, max) {
@@ -379,16 +413,13 @@ function drawCanvas() {
 
     enemyFighters.forEach(function (monsterFighter) {
         monsterFighter.drawFighter()
+        checkCollision(monsterFighter)
     })
-    if(monsterFighterObject.speedX !== 0 || monsterFighterObject.speedY !== 0) {
-        checkCollision(humanEnemy)
-        checkCollision(vampireEnemy)
-        checkCollision(werewolfEnemy)
-    }
+
 }   
 
 function sendPosition(x, y) {
-    fetch(`http://localhost:1777/monsterFighter/${playerId}/position`, {
+    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}/position`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -398,20 +429,20 @@ function sendPosition(x, y) {
             y
         })
     })
-    .then(function (ans) {
-        if (ans.ok) {
-            ans.json()
+    .then(function (res) {
+        if (res.ok) {
+            res.json()
                 .then(function ({enemies}) {
                     console.log(enemies);
                     enemyFighters = enemies.map(function (enemy) {
                         let enemyFighter = null
                         const fighterName = enemy.fighter.name || ""
                         if (fighterName === "Human") {
-                            enemyFighter = new MonsterFighter('Human', '/assets/Old_MMA_fighter.png', 5, '/assets/Old_MMA_fighter_face.png')                        
+                            enemyFighter = new MonsterFighter('Human', './assets/Old_MMA_fighter.png', 5, './assets/Old_MMA_fighter_face.png', enemy.id)                        
                         } else if (fighterName === "Vampire") {
-                            enemyFighter = new MonsterFighter('Vampire', '/assets/vampire_fighter.png', 5, '/assets/vampire_fighter_face.png')
+                            enemyFighter = new MonsterFighter('Vampire', './assets/vampire_fighter.png', 5, './assets/vampire_fighter_face.png', enemy.id)
                         } else if (fighterName === "Werewolf") {
-                            enemyFighter = new MonsterFighter('Werewolf', '/assets/werewolf_fighter.png', 5, '/assets/werewolf_fighter _face.png')
+                            enemyFighter = new MonsterFighter('Werewolf', './assets/werewolf_fighter.png', 5, './assets/werewolf_fighter _face.png', enemy.id)
                         }
 
                         enemyFighter.x = enemy.x
@@ -465,8 +496,6 @@ function keyPressed(event) {
 }
 
 function startMap() {
-    // map.width = 420
-    // map.height = 360
     monsterFighterObject = getFighterObject(playerFighter)
     console.log(monsterFighterObject, playerFighter);
     interval = setInterval(drawCanvas, 50)
@@ -511,6 +540,8 @@ function checkCollision(enemy) {
     stopMotion()
     clearInterval(interval)
     console.log("collision detected");
+
+    enemyId = enemy.id
     sectionSelectAttack.style.display = 'flex'
     sectionShowMap.style.display = 'none'
     selectEnemyFighter(enemy)
