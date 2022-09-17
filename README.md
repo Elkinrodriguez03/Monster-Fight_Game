@@ -6,7 +6,6 @@ This is a program based on HTML5, CSS, JavaScript and something of NodeJS. The f
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
--
 
 ## About <a name = "about"></a>
 Monster-Fight is a game where you can compete with other players and try your luck. You could select a fighter within three options, Human, Vampire and Werewolf. Each fighter has 5 attacks depending on your fighter selection.
