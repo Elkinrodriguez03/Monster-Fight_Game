@@ -41,7 +41,7 @@ npm install express
 ## Usage <a name="usage"></a>
 Great!, now you can run the local host on your browser and play with any device on your local network.
 Instruction:
-First you need to choose a Monster Fighter.
-Move to your opponent on the map with the keyboard arrows or the buttons on the display.
-Select your attacks and good luck.
+- First you need to choose a Monster Fighter.
+- Move to your opponent on the map with the keyboard arrows or the buttons on the display.
+- Select your attacks and good luck.
 
