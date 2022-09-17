@@ -1,17 +1,12 @@
-### Monster-Fight_Game
+## Monster-Fight_Game
 
 This is a program based on HTML5, CSS, JavaScript and something of NodeJS. The finally for this project is continue practice and improve my skills working with this specific technologies 
 
-## Table of Contents
+### Table of Contents
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
+-
 
 ## About <a name = "about"></a>
 Monster-Fight is a game where you can compete with other players and try your luck. You could select a fighter within three options, Human, Vampire and Werewolf. Each fighter has 5 attacks depending on your fighter selection.
