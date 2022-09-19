@@ -46,7 +46,7 @@ app.get("/join", (req, res) => {
     res.send(id)
 })
 
-app.post("/", (req, res) => {
+app.post("/monsterFighter/:playerId", (req, res) => {
     const playerId = req.params.playerId || ""
     const name  = req.body.fighter || ""
     const fighter = new MonsterFighter(name)
@@ -103,4 +103,4 @@ app.get("/monsterFighter/:playerId/attacks", (req, res) => {
 
 app.listen(1777, () => {
     console.log("Server working")
-})  
+})
