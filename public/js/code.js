@@ -158,12 +158,12 @@ function startGame() {
 
 function joinGame() {
     fetch(`${URL}/join`)
-        .then(function (res) {
+        .then((res) {
             if (res.ok) {
                 res.text()
-                    .then(function (answer) {
-                        console.log(answer);
-                        playerId = answer
+                    .then((res) => { 
+                        console.log(res);
+                        playerId = res
                     })
             }
         })
