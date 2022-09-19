@@ -103,4 +103,4 @@ app.get("/monsterFighter/:playerId/attacks", (req, res) => {
 
 app.listen(1777, () => {
     console.log("Server working")
-})
+})  
