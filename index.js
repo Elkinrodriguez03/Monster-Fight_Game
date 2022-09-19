@@ -94,7 +94,9 @@ app.post("/monsterFighter/:playerId/attacks", (req, res) => {
 
     const indexPlayer = players.findIndex((player) => playerId === player.id)
 
-    if(indexPlayer >= 0) {
+    if(indexPlayer === -1) {
+        res.status(404).send("Player didn't find")
+    } else {
         players[indexPlayer].assingAttacks(attacks)
     }
 
