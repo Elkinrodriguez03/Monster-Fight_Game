@@ -1,3 +1,4 @@
+const url = 'https://monster-fight-game.vercel.app/'
 const sectionSelectAttack = document.getElementById('select-attack')
 const sectionNewFight = document.getElementById('reset')
 const playerFighterButton = document.getElementById('fighter-button')
@@ -156,7 +157,7 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch("http://monster-fight-game.vercel.app/join")
+    fetch(`${url}/join`)
         .then(function (res) {
             if (res.ok) {
                 res.text()
@@ -194,7 +195,7 @@ function selectPlayerFighter() {
 }
 
 function selectMonsterFighter(playerFighter) {
-    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}`, {
+    fetch(`${url}/monsterFighter/${playerId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -257,7 +258,7 @@ function attackSequence() {
 }
 
 function sendAttacks() {
-    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}/attacks`, {
+    fetch(`${url}/monsterFighter/${playerId}/attacks`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -271,7 +272,7 @@ function sendAttacks() {
 }
 
 function getAttacks() {
-    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${enemyId}/attacks`)
+    fetch(`${url}/monsterFighter/${enemyId}/attacks`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -419,7 +420,7 @@ function drawCanvas() {
 }   
 
 function sendPosition(x, y) {
-    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}/position`, {
+    fetch(`${url}/monsterFighter/${playerId}/position`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
