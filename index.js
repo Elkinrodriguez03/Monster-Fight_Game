@@ -45,7 +45,7 @@ app.get("/join", (req, res) => {
 
     players.push(player)
 
-    res.setHeader("Access-Control-Allow-Origin", "*")
+    // res.setHeader("Access-Control-Allow-Origin", "*")
 
     res.send(id)
 })
@@ -86,6 +86,7 @@ app.post("/monsterFighter/:playerId/position", (req, res) => {
     res.send({
         enemies
     })
+    res.end()
 })
 
 app.post("/monsterFighter/:playerId/attacks", (req, res) => {
