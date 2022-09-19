@@ -57,7 +57,9 @@ app.post("/monsterFighter/:playerId", (req, res) => {
 
     const indexPlayer = players.findIndex((player) => playerId === player.id)
 
-    if(indexPlayer >= 0) {
+    if(indexPlayer === -1) {
+        res.status(404).send("Player didn't find")
+    } else {
         players[indexPlayer].assingFighter(fighter)
     }
 
@@ -73,7 +75,9 @@ app.post("/monsterFighter/:playerId/position", (req, res) => {
 
     const indexPlayer = players.findIndex((player) => playerId === player.id)
 
-    if(indexPlayer >= 0) {
+    if(indexPlayer === -1) {
+        res.status(404).send("Player didn't find")
+    } else {
         players[indexPlayer].updatePosition(x, y)
     }
 
