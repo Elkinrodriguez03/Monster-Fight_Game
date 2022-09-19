@@ -157,7 +157,7 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch(`${url}/join`)
+    fetch(`${url}join`)
         .then(function (res) {
             if (res.ok) {
                 res.text()
