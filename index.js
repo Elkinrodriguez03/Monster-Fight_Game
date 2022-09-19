@@ -1,5 +1,5 @@
-const express = require("express")
-const cors = require("cors")
+import express from "express"
+import cors from "cors"
 
 import dotenv from "dotenv"
 dotenv.config()
@@ -63,8 +63,8 @@ app.post("/monsterFighter/:playerId", (req, res) => {
         players[indexPlayer].assingFighter(fighter)
     }
 
-    console.log(players);
-    console.log(playerId);  
+    // console.log(players);
+    // console.log(playerId);  
     res.end()
 })
 

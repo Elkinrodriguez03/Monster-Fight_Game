@@ -428,7 +428,7 @@ function sendPosition(x, y) {
         body: JSON.stringify({
             x,
             y
-        })
+        }),
     })
     .then(function (res) {
         if (res.ok) {
