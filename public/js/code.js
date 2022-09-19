@@ -1,4 +1,4 @@
-const url = 'https://monster-fight-game.vercel.app/'
+const URL = 'https://monster-fight-game.vercel.app/'
 const sectionSelectAttack = document.getElementById('select-attack')
 const sectionNewFight = document.getElementById('reset')
 const playerFighterButton = document.getElementById('fighter-button')
@@ -157,7 +157,7 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch(`${url}join`)
+    fetch(`${URL}join`)
         .then(function (res) {
             if (res.ok) {
                 res.text()
