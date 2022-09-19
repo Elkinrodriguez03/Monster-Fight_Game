@@ -1,6 +1,6 @@
 # Monster-Fight_Game
 
-This is a program based on HTML5, CSS, JavaScript and something of NodeJS. The finally for this project is continue practice and improve my skills working with this specific technologies 
+This is a program based on HTML5, CSS, JavaScript and something of NodeJS. The final goal for this project is to continue practice and improve my skills working with these technologies.
 
 ## Table of Contents
 - [About](#about)
