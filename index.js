@@ -38,7 +38,7 @@ class MonsterFighter {
     }
 }
 
-app.get("/join", (req, res) => {
+app.get("join", (req, res) => {
     const id = `${Math.random()}`
 
     const player = new Player(id)
