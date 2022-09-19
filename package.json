@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +20,8 @@
   "homepage": "https://github.com/Elkinrodriguez03/Monster-Fight_Game#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.1"
+    "dotenv": "16.0.2",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
   }
 }

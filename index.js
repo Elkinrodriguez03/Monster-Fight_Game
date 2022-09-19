@@ -1,6 +1,9 @@
 const express = require("express")
 const cors = require("cors")
 
+import dotenv from "dotenv"
+dotenv.config()
+
 const app = express()
 
 app.use(express.static('public'))
@@ -8,6 +11,7 @@ app.use(cors())
 app.use(express.json())
 
 const players = []
+const PORT = process.env.PORT || 1777
 
 class Player {
     constructor(id) {
@@ -101,6 +105,6 @@ app.get("/monsterFighter/:playerId/attacks", (req, res) => {
     })
 })
 
-app.listen(1777, () => {
+app.listen(PORT, () => {
     console.log("Server working")
 })
