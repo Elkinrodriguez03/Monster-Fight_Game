@@ -156,7 +156,7 @@ function startGame() {
 }
 
 function joinGame() {
-    fetch("http://192.168.10.12:1777/join")
+    fetch("http://monster-fight-game.vercel.app/join")
         .then(function (res) {
             if (res.ok) {
                 res.text()
@@ -194,7 +194,7 @@ function selectPlayerFighter() {
 }
 
 function selectMonsterFighter(playerFighter) {
-    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}`, {
+    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -257,7 +257,7 @@ function attackSequence() {
 }
 
 function sendAttacks() {
-    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}/attacks`, {
+    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}/attacks`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -271,7 +271,7 @@ function sendAttacks() {
 }
 
 function getAttacks() {
-    fetch(`http://192.168.10.12:1777/monsterFighter/${enemyId}/attacks`)
+    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${enemyId}/attacks`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -419,7 +419,7 @@ function drawCanvas() {
 }   
 
 function sendPosition(x, y) {
-    fetch(`http://192.168.10.12:1777/monsterFighter/${playerId}/position`, {
+    fetch(`http://monster-fight-game.vercel.app/monsterFighter/${playerId}/position`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
