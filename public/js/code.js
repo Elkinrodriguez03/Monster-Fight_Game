@@ -195,7 +195,7 @@ function selectPlayerFighter() {
 }
 
 function selectMonsterFighter(playerFighter) {
-    fetch(`${url}/monsterFighter/${playerId}`, {
+    fetch(`${URL}/monsterFighter/${playerId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -258,7 +258,7 @@ function attackSequence() {
 }
 
 function sendAttacks() {
-    fetch(`${url}/monsterFighter/${playerId}/attacks`, {
+    fetch(`${URL}/monsterFighter/${playerId}/attacks`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -272,7 +272,7 @@ function sendAttacks() {
 }
 
 function getAttacks() {
-    fetch(`${url}/monsterFighter/${enemyId}/attacks`)
+    fetch(`${URL}/monsterFighter/${enemyId}/attacks`)
         .then(function (res) {
             if (res.ok) {
                 res.json()
@@ -420,7 +420,7 @@ function drawCanvas() {
 }   
 
 function sendPosition(x, y) {
-    fetch(`${url}/monsterFighter/${playerId}/position`, {
+    fetch(`${URL}/monsterFighter/${playerId}/position`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
